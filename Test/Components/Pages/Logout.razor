@@ -1,0 +1,24 @@
+﻿@page "/logout"
+@inject IHttpContextAccessor HttpContextAccessor
+@using Microsoft.AspNetCore.Authentication
+@using Microsoft.AspNetCore.Authentication.Google
+@using Test.Auth
+
+                                                                                                                                                                                                                                                                                                                                                                                                                         
+@code {
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        var httpContext = HttpContextAccessor.HttpContext;
+
+        if (httpContext != null)
+        {
+            await httpContext.SignOutAsync(AppConstants.AuthScheme);
+        }
+        else
+        {
+            Console.WriteLine("HttpContext is null. Unable to proceed with authentication.");
+        }
+    }
+}

@@ -1,0 +1,44 @@
+﻿@* @page "/login" *@
+@inject IHttpContextAccessor HttpContextAccessor
+@using Microsoft.AspNetCore.Authentication
+@using Microsoft.AspNetCore.Authentication.Google
+@inject NavigationManager NavigationManager
+
+@code {
+    
+
+    protected override async Task OnInitializedAsync()
+    {
+        var httpContext = HttpContextAccessor.HttpContext;
+
+        if (httpContext != null)
+        {
+            var authProperties = new AuthenticationProperties
+                {
+                    RedirectUri = "/after-login" // 로그인 성공 시 리디렉션될 URL
+                };
+            
+            // var googleAuthUrl = "/signin-google";
+            // NavigationManager.NavigateTo(googleAuthUrl, forceLoad: true);
+
+            
+
+            // var result = TypedResults.Challenge(authProperties, new[] { GoogleDefaults.AuthenticationScheme });
+            // await result.ExecuteAsync(httpContext);
+
+            await httpContext.ChallengeAsync(GoogleDefaults.AuthenticationScheme, authProperties);
+        }
+        else
+        {
+            Console.WriteLine("HttpContext is null. Unable to proceed with authentication.");
+        }
+
+        // var authProperties = new AuthenticationProperties
+        //     {
+        //         RedirectUri = "/after-login"
+        //     };
+
+        // var result = TypedResults.Challenge(authProperties, [GoogleDefaults.AuthenticationScheme]);
+        // await result.ExecuteAsync(httpContext);
+    }
+}

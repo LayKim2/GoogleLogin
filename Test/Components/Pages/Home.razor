@@ -1,0 +1,33 @@
+﻿@page "/"
+
+@using Microsoft.AspNetCore.Authentication
+@using Microsoft.AspNetCore.Authentication.Cookies
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Http
+@inject NavigationManager Navigation
+@inject IHttpContextAccessor HttpContextAccessor
+
+<AuthorizeView>
+    <Authorized>
+        <div>
+            안녕하세요, @HttpContextAccessor.HttpContext.User.Identity.Name 님!
+            <button @onclick="Logout">로그아웃</button>
+        </div>
+    </Authorized>
+    <NotAuthorized>
+        <button @onclick="Login">로그인</button>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+    private void Login()
+    {
+        Navigation.NavigateTo("signin-kakao", forceLoad: true); // 카카오 로그인으로 이동
+    }
+
+    private async Task Logout()
+    {
+        await HttpContextAccessor.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        Navigation.NavigateTo("/", forceLoad: true); // 로그아웃 후 홈으로 이동
+    }
+}

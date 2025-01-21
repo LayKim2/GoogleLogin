@@ -1,0 +1,29 @@
+﻿@page "/after-login"
+@inject IHttpContextAccessor HttpContextAccessor
+@using System.Security.Claims
+
+<PageTitle>After Login</PageTitle>
+
+<h3>Welcome!</h3>
+@if (user != null)
+{
+    <p>Hello, @user.FindFirst(ClaimTypes.Name)?.Value</p>
+}
+
+@code {
+    private ClaimsPrincipal? user;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var httpContext = HttpContextAccessor.HttpContext;
+
+        if (httpContext != null && httpContext.User.Identity!.IsAuthenticated)
+        {
+            user = httpContext.User;
+        }
+        else
+        {
+            Console.WriteLine("User is not authenticated.");
+        }
+    }
+}
