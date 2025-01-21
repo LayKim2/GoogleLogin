@@ -1,37 +1,6 @@
-# version: '3.4'
-
 services:
-  Test:
-    image: ${DOCKER_REGISTRY-}hashkoreablazor
-    container_name: Test
+  test:
+    image: ${DOCKER_REGISTRY-}test
     build:
       context: .
       dockerfile: Test/Dockerfile
-    ports:
-      - "8080:8080"
-    environment:
-      # - ASPNETCORE_ENVIRONMENT=Production
-      # - ConnectionStrings__DefaultConnection=Server=${AWS_SERVER};Port=3306;Database=${AWS_DATABASE};User=${AWS_USER};Password=${AWS_PASSWORD};
-      - NODE_ENV=development
-      # MSSQL
-      # - ConnectionStrings__DefaultConnection=Server=hashkorea.database;Database=HashKorea;User Id=sa;Password=${SA_PASSWORD:-YourStrong@Passw0rd1};TrustServerCertificate=True;Encrypt=False;
-      # REDIS
-      # - Cache=hashkorea.cache:6379
-      # - Cache=hashkorea-cache-4xzffu.serverless.apn2.cache.amazonaws.com:6379
-    volumes:
-      # - ./init-scripts:/docker-entrypoint-initdb.d
-      - ./uploads:/app/uploads
-      - ~/.aws:/root/.aws:ro
-    # user: "${UID}:${GID}"
-  # hashkorea.cache:
-  #   image: redis:latest
-  #   container_name: hashkorea.cache
-  #   restart: always
-  #   ports:
-  #     - '6379:6379'
-  #   networks:
-  #     - default
-
-# networks:
-#   default:
-#     name: Test_network
