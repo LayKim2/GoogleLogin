@@ -1,12 +1,12 @@
 # version: '3.4'
 
 services:
-  hashkorea-blazor:
+  Test:
     image: ${DOCKER_REGISTRY-}hashkoreablazor
-    container_name: hashkorea-blazor
+    container_name: Test
     build:
       context: .
-      dockerfile: HashKorea-Blazor/Dockerfile
+      dockerfile: Test/Dockerfile
     ports:
       - "8080:8080"
     environment:
@@ -34,4 +34,4 @@ services:
 
 # networks:
 #   default:
-#     name: hashkorea-blazor_network
+#     name: Test_network
