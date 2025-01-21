@@ -22,7 +22,7 @@ services:
       # - ./init-scripts:/docker-entrypoint-initdb.d
       - ./uploads:/app/uploads
       - ~/.aws:/root/.aws:ro
-    user: "${UID}:${GID}"
+    # user: "${UID}:${GID}"
   # hashkorea.cache:
   #   image: redis:latest
   #   container_name: hashkorea.cache
